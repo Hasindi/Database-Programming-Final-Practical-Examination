@@ -85,6 +85,26 @@ public class StudentFormController {
     }
 
     public void updateOnAction(ActionEvent actionEvent) {
+        Student s = new Student(
+                txtId.getText(),
+                txtName.getText(),
+                txtEmail.getText(),
+                txtContact.getText(),
+                txtAddress.getText(),
+                txtNIC.getText()
+        );
+
+        try{
+            if (CrudUtil.execute("UPDATE student SET student_name=?, email=?, contact=?, address=?, nic=? WHERE student_id=?",
+                    s.getStudent_name(), s.getEmail(), s.getContact(), s.getAddress(), s.getNIC(),s.getStudent_id())){
+                new Alert(Alert.AlertType.CONFIRMATION,"Data Updated Succussfully...!").showAndWait();
+            }
+
+        }catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+        }
+        clearText();
 
     }
 
