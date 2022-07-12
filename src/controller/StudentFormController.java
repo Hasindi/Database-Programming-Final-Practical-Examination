@@ -48,6 +48,20 @@ public class StudentFormController {
 
         loadAllStudents();
 
+        tblAllStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue!=null){
+                setData(newValue);
+            }
+        });
+    }
+
+    private void setData(Student s) {
+        txtId.setText(s.getStudent_id());
+        txtName.setText(s.getStudent_name());
+        txtEmail.setText(s.getEmail());
+        txtContact.setText(s.getContact());
+        txtAddress.setText(s.getAddress());
+        txtNIC.setText(s.getNIC());
     }
 
     private void loadAllStudents() throws SQLException, ClassNotFoundException {
@@ -71,6 +85,7 @@ public class StudentFormController {
     }
 
     public void updateOnAction(ActionEvent actionEvent) {
+
     }
 
     public void deleteOnAction(ActionEvent actionEvent) {
