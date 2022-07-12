@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="916.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StudentFormController">
    <children>
       <TableView fx:id="tblAllStudents" layoutX="50.0" layoutY="446.0" prefHeight="450.0" prefWidth="1267.0">
@@ -40,12 +39,12 @@
          </font>
       </Label>
       <Separator layoutX="544.0" layoutY="104.0" prefHeight="3.0" prefWidth="443.0" style="-fx-background-color: black;" />
-      <JFXButton fx:id="btnUpdate" layoutX="665.0" layoutY="307.0" onAction="#updateOnAction" prefHeight="55.0" prefWidth="199.0" style="-fx-background-color: #088947;" text="Update           ">
+      <JFXButton fx:id="btnUpdate" layoutX="665.0" layoutY="307.0" onAction="#updateOnAction" prefHeight="55.0" prefWidth="199.0" style="-fx-background-color: #088947;" text="Update">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnDelete" layoutX="916.0" layoutY="307.0" onAction="#deleteOnAction" prefHeight="55.0" prefWidth="199.0" style="-fx-background-color: #BD392A;" text="Delete          ">
+      <JFXButton fx:id="btnDelete" layoutX="916.0" layoutY="307.0" onAction="#deleteOnAction" prefHeight="55.0" prefWidth="199.0" style="-fx-background-color: #BD392A;" text="Delete">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -55,7 +54,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXTextField>
-      <JFXButton fx:id="btnAdd" contentDisplay="RIGHT" layoutX="416.0" layoutY="307.0" onAction="#addOnAction" prefHeight="55.0" prefWidth="199.0" style="-fx-background-color: #08A4D2;" text="Add             ">
+      <JFXButton fx:id="btnAdd" contentDisplay="RIGHT" layoutX="416.0" layoutY="307.0" onAction="#addOnAction" prefHeight="55.0" prefWidth="199.0" style="-fx-background-color: #08A4D2;" text="Add">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

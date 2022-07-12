@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -81,6 +83,27 @@ public class StudentFormController {
                     )
             );
             tblAllStudents.setItems(obList);
+
+            //search
+
+            FilteredList<Student> filterData = new FilteredList<Student>(obList, b -> true);
+
+            txtSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+                filterData.setPredicate(Student -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (Student.getStudent_id().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                        return true;
+                    }
+                    else
+                        return false;
+                });
+            });
+            SortedList<Student> sortedData = new SortedList<>(filterData);
+            sortedData.comparatorProperty().bind(tblAllStudents.comparatorProperty());
+            tblAllStudents.setItems(sortedData);
         }
     }
 
