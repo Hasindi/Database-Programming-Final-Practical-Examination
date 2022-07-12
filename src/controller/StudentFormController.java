@@ -145,6 +145,7 @@ public class StudentFormController {
     }
 
     public void clearOnAction(ActionEvent actionEvent) {
+        clearText();
     }
 
     public void TextFieldsReleased(KeyEvent keyEvent) {
