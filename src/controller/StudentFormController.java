@@ -84,7 +84,7 @@ public class StudentFormController {
         }
     }
 
-    public void updateOnAction(ActionEvent actionEvent) {
+    public void updateOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         Student s = new Student(
                 txtId.getText(),
                 txtName.getText(),
@@ -104,11 +104,23 @@ public class StudentFormController {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
         }
+        loadAllStudents();
         clearText();
 
     }
 
-    public void deleteOnAction(ActionEvent actionEvent) {
+    public void deleteOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        try{
+            if(CrudUtil.execute("DELETE FROM student WHERE student_id =?",txtId.getText())){
+                new Alert(Alert.AlertType.CONFIRMATION,"Deleted...!!!").showAndWait();
+            }else {
+                new Alert(Alert.AlertType.CONFIRMATION,"Try Again...!").showAndWait();
+            }
+
+        }catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        }
+        loadAllStudents();
     }
 
     public void addOnAction(ActionEvent actionEvent) {
@@ -125,6 +137,7 @@ public class StudentFormController {
             if (CrudUtil.execute("INSERT INTO student VALUES (?,?,?,?,?,?)",
                     s.getStudent_id(), s.getStudent_name(), s.getEmail(), s.getContact(), s.getAddress(), s.getNIC())){
                 new Alert(Alert.AlertType.CONFIRMATION,"Data Added Succussfully...!").showAndWait();
+                loadAllStudents();
             }
 
 
