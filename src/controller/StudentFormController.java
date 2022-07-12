@@ -59,8 +59,17 @@ public class StudentFormController {
         }catch (ClassNotFoundException | SQLException e){
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
-
         }
+        clearText();
+    }
+
+    private void clearText() {
+        txtId.clear();
+        txtName.clear();
+        txtContact.clear();
+        txtNIC.clear();
+        txtEmail.clear();
+        txtAddress.clear();
     }
 
     public void clearOnAction(ActionEvent actionEvent) {
