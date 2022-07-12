@@ -12,12 +12,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.Student;
 import util.CrudUtil;
+import util.ValidationUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
+import java.util.regex.Pattern;
 
 public class StudentFormController {
 
@@ -39,7 +43,13 @@ public class StudentFormController {
     public JFXTextField txtEmail;
     public JFXTextField txtNIC;
 
+    LinkedHashMap<JFXTextField, Pattern> map = new LinkedHashMap<>();
+
     public void initialize() throws SQLException, ClassNotFoundException {
+        btnAdd.setDisable(true);
+        btnUpdate.setDisable(true);
+        btnDelete.setDisable(true);
+
         colId.setCellValueFactory(new PropertyValueFactory("student_id"));
         colName.setCellValueFactory(new PropertyValueFactory("student_name"));
         colEmail.setCellValueFactory(new PropertyValueFactory("email"));
@@ -55,6 +65,18 @@ public class StudentFormController {
                 setData(newValue);
             }
         });
+
+        Pattern namePattern = Pattern.compile("^[A-z]{3,10}[ ][A-z]{3,10}$");
+        Pattern emailPattern = Pattern.compile("^[A-Za-z0-9!#$%&*+/=?_]{3,}(@gmail.com)$");
+        Pattern contactPattern = Pattern.compile("^(0)(71|77|76|70|75|78|91)-[0-9]{7}$");
+        Pattern addressPattern = Pattern.compile("^[A-z0-9/ ]{5,30}$");
+        Pattern nicPattern = Pattern.compile("^([0-9]{9}[v]|[0-9]{12})$");
+
+        map.put(txtName,namePattern);
+        map.put(txtEmail,emailPattern);
+        map.put(txtContact,contactPattern);
+        map.put(txtAddress,addressPattern);
+        map.put(txtNIC,addressPattern);
     }
 
     private void setData(Student s) {
@@ -64,6 +86,10 @@ public class StudentFormController {
         txtContact.setText(s.getContact());
         txtAddress.setText(s.getAddress());
         txtNIC.setText(s.getNIC());
+
+        btnUpdate.setDisable(false);
+        btnDelete.setDisable(false);
+        btnAdd.setDisable(true);
     }
 
     private void loadAllStudents() throws SQLException, ClassNotFoundException {
@@ -178,6 +204,7 @@ public class StudentFormController {
         txtNIC.clear();
         txtEmail.clear();
         txtAddress.clear();
+        tblAllStudents.refresh();
     }
 
     public void clearOnAction(ActionEvent actionEvent) {
@@ -185,5 +212,17 @@ public class StudentFormController {
     }
 
     public void TextFieldsReleased(KeyEvent keyEvent) {
+        ValidationUtil.validate(map,btnAdd);
+
+        if (keyEvent.getCode()== KeyCode.ENTER){
+            Object response = ValidationUtil.validate(map,btnAdd);
+
+            if (response instanceof JFXTextField){
+                JFXTextField textField = (JFXTextField) response;
+                textField.requestFocus();
+            }else if (response instanceof Boolean){
+
+            }
+        }
     }
 }
